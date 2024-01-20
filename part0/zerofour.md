@@ -8,7 +8,8 @@ participant server
     server-->>browser: Response 302 Found
     deactivate server
 
-    Note right of browser: When the save button is clicked, the browser makes a POST request to the server with a payload of the note's contents as typed in the form field
+    Note right of browser: When the save button is clicked, the browser makes a POST request to the server with a payload of the note's contents as typed in the form field.
+    Note right of browser: The page then refreshes as default behavior of the form submit.
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
@@ -32,5 +33,5 @@ participant server
     server-->>browser: [{ "content": "my newest note", "HTML is easy", "date": "2023-1-1" }, ... ]
     deactivate server
 
-    Note right of browser: the browser executes the JS function after the GET that renders the notes on our web page, now updated with our latest note
+    Note right of browser: The browser executes the JS function after the GET that renders the notes on our web page, now updated with our latest note
 ```
