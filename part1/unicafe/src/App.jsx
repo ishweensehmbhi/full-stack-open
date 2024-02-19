@@ -15,17 +15,26 @@ const App = () => {
 		const calculateAverage =
 			ratings.reduce((a, b) => a + b, 0) / ratings.length;
 
-		return (
-			<>
-				<h1>statistics</h1>
-				<p>good {good}</p>
-				<p>neutral {neutral}</p>
-				<p>bad {bad}</p>
-				<p>all {ratings.length}</p>
-				<p>average {calculateAverage}</p>
-				<p>positive {(good / ratings.length) * 100} %</p>
-			</>
-		);
+		if (ratings.length > 0) {
+			return (
+				<>
+					<h1>statistics</h1>
+					<p>good {good}</p>
+					<p>neutral {neutral}</p>
+					<p>bad {bad}</p>
+					<p>all {ratings.length}</p>
+					<p>average {calculateAverage}</p>
+					<p>positive {(good / ratings.length) * 100} %</p>
+				</>
+			);
+		} else {
+			return (
+				<>
+					<h1>statistics</h1>
+					<p>No feedback given</p>
+				</>
+			);
+		}
 	};
 
 	const clickEvents = (type) => {
