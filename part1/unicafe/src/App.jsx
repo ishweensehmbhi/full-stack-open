@@ -7,6 +7,31 @@ const App = () => {
 	const [bad, setBad] = useState(0);
 	const [ratings, setRatings] = useState([]);
 
+	const clickEvents = (type) => {
+		let returnFunction;
+		switch (type) {
+			case "good":
+				returnFunction = () => {
+					setGood(good + 1);
+					setRatings(ratings.concat(1));
+				};
+				break;
+			case "neutral":
+				returnFunction = () => {
+					setNeutral(neutral + 1);
+					setRatings(ratings.concat(0));
+				};
+				break;
+			case "bad":
+				returnFunction = () => {
+					setBad(bad + 1);
+					setRatings(ratings.concat(-1));
+				};
+				break;
+		}
+		return returnFunction;
+	};
+
 	const Button = (props) => {
 		return <button onClick={props.onClickEvent}>{props.text}</button>;
 	};
@@ -37,44 +62,18 @@ const App = () => {
 		}
 	};
 
-	const clickEvents = (type) => {
-		switch (type) {
-			case "good":
-				setGood(good + 1);
-				setRatings(ratings.concat(1));
-				break;
-			case "neutral":
-				setNeutral(neutral + 1);
-				setRatings(ratings.concat(0));
-				break;
-			case "bad":
-				setBad(bad + 1);
-				setRatings(ratings.concat(-1));
-				break;
-		}
-	};
-
 	return (
 		<>
 			<h1>give feedback</h1>
 			<Button
 				text="good"
-				onClickEvent={() => {
-					clickEvents("good");
-				}}
+				onClickEvent={clickEvents("good")}
 			></Button>
 			<Button
 				text="neutral"
-				onClickEvent={() => {
-					clickEvents("neutral");
-				}}
+				onClickEvent={clickEvents("neutral")}
 			></Button>
-			<Button
-				text="bad"
-				onClickEvent={() => {
-					clickEvents("bad");
-				}}
-			></Button>
+			<Button text="bad" onClickEvent={clickEvents("bad")}></Button>
 			<Statistics></Statistics>
 		</>
 	);
