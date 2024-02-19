@@ -13,6 +13,9 @@ const App = () => {
 	];
 
 	const [selected, setSelected] = useState(0);
+	// creates an array of zeroes of the length of anecdotes
+	const [votes, setVotes] = useState(new Uint8Array(anecdotes.length));
+	const [topVote, setTopVote] = useState(0);
 
 	// Generate random number between 0 and anecdotes length
 	const randNumGen = () => {
@@ -23,10 +26,32 @@ const App = () => {
 		setSelected(randNumGen());
 	};
 
+	const castVote = (selected) => {
+		const copy = [...votes];
+		// increment value in selected position by one
+		copy[selected] += 1;
+		setVotes(copy);
+		// check if highest voted has changed
+		// find the highest number of votes and then find its index
+		// if there is a tie, then show the first one that indexOf finds
+		setTopVote(copy.indexOf(Math.max(...copy)));
+	};
+
 	return (
 		<div>
+			<h1>Anecdote of the day</h1>
 			<p>{anecdotes[selected]}</p>
+			<p>has {votes[selected]} votes</p>
+			<button
+				onClick={() => {
+					castVote(selected);
+				}}
+			>
+				vote
+			</button>
 			<button onClick={changeQuote}>next anecdote</button>
+			<h1>Anecdote with most votes</h1>
+			<p>{anecdotes[topVote]}</p>
 		</div>
 	);
 };
