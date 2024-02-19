@@ -7,6 +7,7 @@ const App = () => {
 	const [bad, setBad] = useState(0);
 	const [ratings, setRatings] = useState([]);
 
+	// Determines which onClick function to utilize for each button
 	const clickEvents = (type) => {
 		let returnFunction;
 		switch (type) {
@@ -32,24 +33,60 @@ const App = () => {
 		return returnFunction;
 	};
 
+	// Button component
 	const Button = (props) => {
 		return <button onClick={props.onClickEvent}>{props.text}</button>;
 	};
 
+	// Stats component
 	const Statistics = () => {
+		// Stats line component
+		const StatisticLine = (props) => {
+			return (
+				<tr>
+					<td>{props.text}</td>
+					<td>{props.value}</td>
+				</tr>
+			);
+		};
+
 		const calculateAverage =
 			ratings.reduce((a, b) => a + b, 0) / ratings.length;
+
+		const calculatePositive = (good / ratings.length) * 100;
 
 		if (ratings.length > 0) {
 			return (
 				<>
 					<h1>statistics</h1>
-					<p>good {good}</p>
-					<p>neutral {neutral}</p>
-					<p>bad {bad}</p>
-					<p>all {ratings.length}</p>
-					<p>average {calculateAverage}</p>
-					<p>positive {(good / ratings.length) * 100} %</p>
+					<table>
+						<tbody>
+							<StatisticLine
+								text="good"
+								value={good}
+							></StatisticLine>
+							<StatisticLine
+								text="neutral"
+								value={neutral}
+							></StatisticLine>
+							<StatisticLine
+								text="bad"
+								value={bad}
+							></StatisticLine>
+							<StatisticLine
+								text="all"
+								value={ratings.length}
+							></StatisticLine>
+							<StatisticLine
+								text="average"
+								value={calculateAverage}
+							></StatisticLine>
+							<StatisticLine
+								text="positive"
+								value={`${calculatePositive} %`}
+							></StatisticLine>
+						</tbody>
+					</table>
 				</>
 			);
 		} else {
