@@ -5,8 +5,70 @@ const App = () => {
 	const [good, setGood] = useState(0);
 	const [neutral, setNeutral] = useState(0);
 	const [bad, setBad] = useState(0);
+	const [ratings, setRatings] = useState([]);
 
-	return <div>code here</div>;
+	const Button = (props) => {
+		return <button onClick={props.onClickEvent}>{props.text}</button>;
+	};
+
+	const Statistics = () => {
+		const calculateAverage =
+			ratings.reduce((a, b) => a + b, 0) / ratings.length;
+
+		return (
+			<>
+				<h1>statistics</h1>
+				<p>good {good}</p>
+				<p>neutral {neutral}</p>
+				<p>bad {bad}</p>
+				<p>all {ratings.length}</p>
+				<p>average {calculateAverage}</p>
+				<p>positive {(good / ratings.length) * 100} %</p>
+			</>
+		);
+	};
+
+	const clickEvents = (type) => {
+		switch (type) {
+			case "good":
+				setGood(good + 1);
+				setRatings(ratings.concat(1));
+				break;
+			case "neutral":
+				setNeutral(neutral + 1);
+				setRatings(ratings.concat(0));
+				break;
+			case "bad":
+				setBad(bad + 1);
+				setRatings(ratings.concat(-1));
+				break;
+		}
+	};
+
+	return (
+		<>
+			<h1>give feedback</h1>
+			<Button
+				text="good"
+				onClickEvent={() => {
+					clickEvents("good");
+				}}
+			></Button>
+			<Button
+				text="neutral"
+				onClickEvent={() => {
+					clickEvents("neutral");
+				}}
+			></Button>
+			<Button
+				text="bad"
+				onClickEvent={() => {
+					clickEvents("bad");
+				}}
+			></Button>
+			<Statistics></Statistics>
+		</>
+	);
 };
 
 export default App;
