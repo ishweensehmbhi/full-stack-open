@@ -4,7 +4,7 @@ import Total from "./Total";
 
 const Course = ({ course }) => {
 	return (
-		<div>
+		<div id={`course-${course.id}`}>
 			<Header courseName={course.name}></Header>
 			<Content content={course.parts}></Content>
 			<Total content={course.parts}></Total>

@@ -2,7 +2,7 @@ import Part from "./Part";
 
 const Content = ({ content }) => {
 	return (
-		<div>
+		<div id="course-contents">
 			{content.map((part) => (
 				<Part key={part.id} partInfo={part}></Part>
 			))}
